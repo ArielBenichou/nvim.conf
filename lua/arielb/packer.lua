@@ -34,13 +34,25 @@ return require('packer').startup(function(use)
     })
 
 
-    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+    use({
+        "nvim-treesitter/nvim-treesitter",
+        run = ":TSUpdate",
+        dependencies = {
+            'nvim-treesitter/nvim-treesitter-textobjects',
+        },
+        config = function()
+            pcall(require('nvim-treesitter.install').update { with_sync = true })
+        end,
+    })
+    use("nvim-treesitter/nvim-treesitter-context");
     use("nvim-treesitter/playground")
+
     use("theprimeagen/harpoon")
     use("theprimeagen/refactoring.nvim")
+
     use("mbbill/undotree")
+
     use("tpope/vim-fugitive")
-    use("nvim-treesitter/nvim-treesitter-context");
 
     use {
         'VonHeikemen/lsp-zero.nvim',
@@ -62,8 +74,38 @@ return require('packer').startup(function(use)
             -- Snippets
             { 'L3MON4D3/LuaSnip' },
             { 'rafamadriz/friendly-snippets' },
+
+            -- Useful status updates for LSP
+            -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
+            { 'j-hui/fidget.nvim',                opts = {} },
+
+
         }
     }
+
+    -- Useful plugin to show you pending keybinds.
+    use({ 'folke/which-key.nvim', opts = {} })
+    use({
+        -- Adds git releated signs to the gutter, as well as utilities for managing changes
+        'lewis6991/gitsigns.nvim',
+        opts = {
+            -- See `:help gitsigns.txt`
+            signs = {
+                add = { text = '+' },
+                change = { text = '~' },
+                delete = { text = '_' },
+                topdelete = { text = '‾' },
+                changedelete = { text = '~' },
+            },
+        },
+    })
+
+    use({
+        -- Set lualine as statusline
+        'nvim-lualine/lualine.nvim',
+        -- See `:help lualine.txt`
+        requires = { 'nvim-tree/nvim-web-devicons', opt = true }
+    })
 
     use("terrortylor/nvim-comment")
 
