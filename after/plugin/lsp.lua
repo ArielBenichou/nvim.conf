@@ -18,6 +18,15 @@ lsp.configure('lua-language-server', {
     }
 })
 
+lsp.configure('sumneko_lua', {
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { 'vim' }
+            }
+        }
+    }
+})
 
 local cmp = require('cmp')
 local cmp_select = { behavior = cmp.SelectBehavior.Select }
@@ -72,7 +81,7 @@ lsp.on_attach(function(client, bufnr)
 
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
-    nmap('<C-K>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    nmap('<leader>K', vim.lsp.buf.signature_help, 'Signature Documentation')
 
     -- Lesser used LSP functionality
     nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
