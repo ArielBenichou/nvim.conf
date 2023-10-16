@@ -1,5 +1,6 @@
 require("arielb.set")
 require("arielb.remap")
+require("arielb.packer")
 
 local augroup = vim.api.nvim_create_augroup
 local ThePrimeagenGroup = augroup('ThePrimeagen', {})
