@@ -3,23 +3,30 @@
 -- Add any additional keymaps here
 
 -- HARPOON
-local mark = require("harpoon.mark")
-local ui = require("harpoon.ui")
+local harpoon = require("harpoon")
 
-vim.keymap.set("n", "<leader>a", mark.add_file, { desc = "Add an Harpoon Mark" })
-vim.keymap.set("n", "<C-e>", ui.toggle_quick_menu, { desc = "Open Harpoon Quick Menu" })
+-- REQUIRED
+harpoon:setup()
+-- REQUIRED
+
+vim.keymap.set("n", "<leader>a", function()
+  harpoon:list():append()
+end, { desc = "Add an Harpoon Mark" })
+vim.keymap.set("n", "<C-e>", function()
+  harpoon.ui:toggle_quick_menu(harpoon:list())
+end, { desc = "Open Harpoon Quick Menu" })
 
 vim.keymap.set("n", "<C-j>", function()
-  ui.nav_file(1)
+  harpoon:list():select(1)
 end, { desc = "Navigate to Harpoon #1 File" })
 vim.keymap.set("n", "<C-k>", function()
-  ui.nav_file(2)
+  harpoon:list():select(2)
 end, { desc = "Navigate to Harpoon #2 File" })
 vim.keymap.set("n", "<C-l>", function()
-  ui.nav_file(3)
+  harpoon:list():select(3)
 end, { desc = "Navigate to Harpoon #3 File" })
 vim.keymap.set("n", "<C-h>", function()
-  ui.nav_file(4)
+  harpoon:list():select(4)
 end, { desc = "Navigate to Harpoon #4 File" })
 
 -- TMUX SESSIONIZER by ThePrimeagen
